@@ -117,10 +117,10 @@ async def send_documents(message: types.Message, pdf_path: str, docx_path: str) 
     pdf_sent = await is_document_sent(message, pdf_path)
     docx_sent = await is_document_sent(message, docx_path)
 
-    if pdf_sent and docx_sent:
-        return "Conversion was successfully ended!"
-    elif pdf_sent and not docx_sent:
-        return "Conversion error: converted DOCX is to large (must be less than 50 MB)!"
-    elif not pdf_sent and docx_sent:
-        return "Conversion error: converted PDF is to large (must be less than 50 MB)!"
-    return "Conversion failed because converted files are larger than 50MB!"
+    return {
+        (True, True): "Conversion was successfully ended!",
+        (True, False): "Conversion error: converted DOCX is to large (must be less than 50 MB)!",
+        (False, True): "Conversion error: converted PDF is to large (must be less than 50 MB)!",
+        (False, False): "Conversion failed because converted files are larger than 50MB!",
+    }.get((pdf_sent, docx_sent), "Couldn't get conversion status!")
+

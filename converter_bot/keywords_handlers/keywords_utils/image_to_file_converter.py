@@ -49,7 +49,7 @@ class PDFConverter(FileConverter):
         conversion_file_path: str,
         image_paths: List[str],
         compression_level: Optional[int] = None,
-    ):
+    ) -> None:
         conversion_canvas = canvas.Canvas(conversion_file_path, pagesize=letter)
 
         for image_file in image_paths:
@@ -77,7 +77,7 @@ class DOCXConverter(FileConverter):
         conversion_file_path: str,
         image_paths: List[str],
         compression_level: Optional[int] = None,
-    ):
+    ) -> None:
         doc = Document()
         for image_file in image_paths:
             img_data = self.compress(image_file, compression_level)
@@ -93,7 +93,7 @@ class DOCXConverter(FileConverter):
     def add_picture(self, doc: Document, image_file: str, height: Optional[Inches] = None) -> None:
         if height:
             doc.add_paragraph().add_run().add_picture(image_file, height=height)
-            return None
+            return
 
         doc.add_paragraph().add_run().add_picture(image_file, width=self.DEFAULT_WIDTH_INCHES)
 

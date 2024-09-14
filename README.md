@@ -27,9 +27,13 @@ This Telegram bot is designed to facilitate the conversion of images to PDF and 
 
 ## Setup
 1. **Clone the repository or download the source code.**
-2. **Activate poetry env:** ```poetry shell```
-3. **Install the required dependencies using poetry:** ```poetry install```
-4. **Create *.env* (file inside source project folder) and type there:**
+2. **Install Pandoc and its dependencies:**
+   ```sudo apt install pandoc```
+   ```sudo apt install texlive-latex-base```
+   ```sudo apt install texlive-latex-recommended```
+3. **Activate poetry env:** ```poetry shell```
+4. **Install the required dependencies using poetry:** ```poetry install```
+5. **Create *.env* (file inside source project folder) and type there:**
    - ```BOT_TOKEN = "<YOUR_BOT_TOKEN>"```
 
 ## Usage

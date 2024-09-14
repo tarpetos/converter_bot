@@ -19,8 +19,7 @@ from .keywords_utils.document_checks import (
     get_opposite_ext_params,
 )
 from .keywords_utils.file_size_controller import is_document_sent
-from .keywords_utils.image_to_file_converter import FileConverter
-from .keywords_utils.pdf_docx_converter import DocumentLoader, DocxToPdf, PdfToDocx
+from .keywords_utils.pdf_docx_converter import DocumentLoader
 from ..config import dp
 
 

@@ -7,7 +7,7 @@ class ImageQualityReducer:
     def __init__(self, image_path: str):
         self.image_path = image_path
 
-    def reduce(self, quality: int, file_specifier: str = None) -> Union[Dict[str, str], Image.Image]:
+    def reduce(self, quality: int, file_specifier: str = None) -> Dict[str, Union[str, Image.Image]]:
         image = Image.open(self.image_path)
         new_path = self.change_path(self.image_path, file_specifier)
         image.save(fp=f"{new_path}", quality=quality)
