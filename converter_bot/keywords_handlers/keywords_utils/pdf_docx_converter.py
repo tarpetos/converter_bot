@@ -1,5 +1,5 @@
 import os
-from typing import List, Tuple, Optional, Union
+from typing import List, Optional
 
 import pypandoc
 from pdf2docx import Converter
@@ -20,9 +20,14 @@ class DocumentLoader(FileLoader):
 
 
 class DocxToPdf(FileConverter):
-    def convert(self, conversion_file_path: str, paths: List[str], **kwargs) -> None:
-        pdf_file = os.path.join(paths[0], f"{DEFAULT_RESULT_FILE_NAME}.{PDF}")
-        pypandoc.convert_file(conversion_file_path, PDF, outputfile=pdf_file)
+    # FIXME: resize images because
+    #  invalid size after conversion
+    def convert(self, conversion_file_path: str, paths: List[str], **kwargs) -> Optional[int]:
+        try:
+            pdf_file = os.path.join(paths[0], f"{DEFAULT_RESULT_FILE_NAME}.{PDF}")
+            pypandoc.convert_file(conversion_file_path, PDF, outputfile=pdf_file)
+        except RuntimeError:
+            return -1
 
 
 class PdfToDocx(FileConverter):

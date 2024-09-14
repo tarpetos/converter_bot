@@ -56,9 +56,12 @@ async def process_img_to_file_keyword(message: types.Message, replied_message: t
     is_sent = bot_reply_data["is_sent"]
 
     await bot_message.edit_text(
-        "Conversion was successfully ended!"
-        if is_sent
-        else "Conversion failed because converted file is larger than 50MB!"
+        "Conversion failed with error!"
+        if is_sent == -1
+        else (
+            "Conversion was successfully ended!" if is_sent else
+            "Conversion failed because converted file is larger than 50MB!"
+        )
     )
 
     file_loader.remove_temp_dir()
@@ -76,7 +79,12 @@ async def send_file(
 
     bot_message = await message.reply(f"{current_ext.upper()} to {target_ext.upper()} conversion started...")
     file_to_file = converter_cls()
-    file_to_file.convert(document_absolute_path, [folder_path])
+    status = file_to_file.convert(document_absolute_path, [folder_path])
+    if status == -1:
+        return {
+            "message": bot_message,
+            "is_sent": status,
+        }
     file_to_send = get_conversion_path_name(DOCUMENTS_FOLDER, user_id, target_ext, filename=DEFAULT_RESULT_FILE_NAME)
 
     new_filename = change_filename(message, target_ext)
