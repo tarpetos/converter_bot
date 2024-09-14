@@ -7,9 +7,7 @@ from aiogram.types import FSInputFile
 from converter_bot.config import bot
 
 
-async def is_document_sent(
-    message: types.Message, file_to_send: str, new_filename: Optional[str] = None
-) -> bool:
+async def is_document_sent(message: types.Message, file_to_send: str, new_filename: Optional[str] = None) -> bool:
     try:
         await bot.send_document(
             chat_id=message.chat.id,

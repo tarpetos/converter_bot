@@ -20,14 +20,16 @@ This Telegram bot is designed to facilitate the conversion of images to PDF and 
    Users can initiate the conversion of an existing PDF or DOCX file to the opposite format by using the keyword "convert" in reply to a message with a file. The bot will convert the specified file and send it back to the user.
 
 ## Requirements
-- Python 3.11
+- Python 3.12
+- PyPoetry
 - Telegram Client
 - Telegram Bot Token
 
 ## Setup
 1. **Clone the repository or download the source code.**
-2. **Install the required dependencies using pip:** ```pip install -r requirements.txt```
-3. **Create *.env* (file inside source project folder) and type there:**
+2. **Activate poetry env:** ```poetry shell```
+3. **Install the required dependencies using poetry:** ```poetry install```
+4. **Create *.env* (file inside source project folder) and type there:**
    - ```BOT_TOKEN = "<YOUR_BOT_TOKEN>"```
 
 ## Usage

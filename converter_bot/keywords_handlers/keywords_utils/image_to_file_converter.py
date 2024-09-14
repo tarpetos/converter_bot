@@ -15,30 +15,24 @@ from .quality_reducer import ImageQualityReducer
 
 class ImageLoader(FileLoader):
     async def save_files(self, image_ids: List[str], **kwargs) -> List[str]:
-        photo_list = await self._images_processing(image_ids)
+        photo_list = await self._process_images(image_ids)
         return photo_list
 
-    async def _images_processing(self, image_ids: List[str]) -> List[str]:
-        return await self._files_processing(image_ids, IMAGE_FILE_PREFIX, JPG)
+    async def _process_images(self, image_ids: List[str]) -> List[str]:
+        return await self._process_files(image_ids, IMAGE_FILE_PREFIX, JPG)
 
 
 class FileConverter(ABC):
     @abstractmethod
-    def convert(
-        self, conversion_file_path: str, image_paths: List[str], **kwargs
-    ) -> None:
+    def convert(self, conversion_file_path: str, image_paths: List[str], **kwargs) -> None:
         raise NotImplementedError
 
     @staticmethod
-    def compress_check(
-        image_file: str, compression_level: Optional[int], **kwargs
-    ) -> Tuple[str, int, int]:
+    def compress_check(image_file: str, compression_level: Optional[int], **kwargs) -> Tuple[str, int, int]:
         file_extension = kwargs["file_extension"]
         if compression_level:
             img_reducer = ImageQualityReducer(image_file)
-            img_obj = img_reducer.reduce(
-                quality=compression_level, file_specifier=file_extension
-            )
+            img_obj = img_reducer.reduce(quality=compression_level, file_specifier=file_extension)
             image_file = img_obj["new_file_path"]
             img = img_obj["reduced_image"]
             width, height = img.size
@@ -64,16 +58,12 @@ class PDFConverter(FileConverter):
             aspect_ratio = height / float(width)
             new_width = letter[0]
             new_height = letter[0] * aspect_ratio
-            conversion_canvas.drawImage(
-                image_file, 0, 0, width=new_width, height=new_height
-            )
+            conversion_canvas.drawImage(image_file, 0, 0, width=new_width, height=new_height)
             conversion_canvas.showPage()
 
         conversion_canvas.save()
 
-    def compress(
-        self, image_file: str, compression_level: Optional[int]
-    ) -> Tuple[str, int, int]:
+    def compress(self, image_file: str, compression_level: Optional[int]) -> Tuple[str, int, int]:
         return self.compress_check(image_file, compression_level, file_extension=PDF)
 
 
@@ -100,23 +90,17 @@ class DOCXConverter(FileConverter):
 
         doc.save(conversion_file_path)
 
-    def add_picture(
-        self, doc: Document, image_file: str, height: Optional[Inches] = None
-    ) -> None:
+    def add_picture(self, doc: Document, image_file: str, height: Optional[Inches] = None) -> None:
         if height:
             doc.add_paragraph().add_run().add_picture(image_file, height=height)
             return None
 
-        doc.add_paragraph().add_run().add_picture(
-            image_file, width=self.DEFAULT_WIDTH_INCHES
-        )
+        doc.add_paragraph().add_run().add_picture(image_file, width=self.DEFAULT_WIDTH_INCHES)
 
     def is_image_sides_ratio_tall(self, image_path: str) -> bool:
         with Image.open(image_path) as img:
             aspect_ratio = img.width / img.height
             return aspect_ratio < self.PHONE_IMAGE_RATIO
 
-    def compress(
-        self, image_file: str, compression_level: Optional[int]
-    ) -> Tuple[str, int, int]:
+    def compress(self, image_file: str, compression_level: Optional[int]) -> Tuple[str, int, int]:
         return self.compress_check(image_file, compression_level, file_extension=DOCX)
