@@ -74,7 +74,7 @@ async def keyword_file_to_file_handler(
         F.reply_to_message,
         F.text.regexp(
             re.compile(
-                "^pdf\s*([1-9][0-9]?|100)?$|^пдф\s*([1-9][0-9]?|100)?$", re.IGNORECASE
+                "^pdf\\s*([1-9][0-9]?|100)?$|^пдф\\s*([1-9][0-9]?|100)?$", re.IGNORECASE
             )
         ),
     )

@@ -1,5 +1,6 @@
 from os import getenv
 from aiogram import Dispatcher, Bot
+from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv
 
@@ -14,4 +15,4 @@ COMMAND_LIST_DESCRIPTION = """
 """
 
 dp = Dispatcher()
-bot = Bot(API_TOKEN, parse_mode=ParseMode.HTML)
+bot = Bot(API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
