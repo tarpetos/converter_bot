@@ -4,6 +4,7 @@ version = "1.0.0"
 description = ""
 authors = ["tarpetos <hevlichtaras@gmail.com>"]
 readme = "README.md"
+license = "LICENSE"
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -15,7 +16,6 @@ pdf2docx = "^0.5.8"
 python-dotenv = "^1.0.1"
 black = "^24.8.0"
 pypandoc = "^1.13"
-
 
 [build-system]
 requires = ["poetry-core"]
