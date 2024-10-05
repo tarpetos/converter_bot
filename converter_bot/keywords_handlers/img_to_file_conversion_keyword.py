@@ -37,7 +37,7 @@ async def image_pdf_converter_helper(message: types.Message, state: FSMContext):
     data["photo_counter"] += 1
     photo_counter = data["photo_counter"]
     data[f"photo_{photo_counter}"] = dict(photo)
-    data[f"allowed_message_id_list"].append(message.message_id)
+    data["allowed_message_id_list"].append(message.message_id)
 
     await state.update_data(data)
 
