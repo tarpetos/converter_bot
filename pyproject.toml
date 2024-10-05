@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "converter-bot"
+version = "1.0.0"
+description = ""
+authors = ["tarpetos <hevlichtaras@gmail.com>"]
+readme = "README.md"
+license = "LICENSE"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiogram = "^3.13.0"
+pillow = "^10.4.0"
+reportlab = "^4.2.2"
+python-docx = "^1.1.2"
+pdf2docx = "^0.5.8"
+python-dotenv = "^1.0.1"
+black = "^24.8.0"
+pypandoc = "^1.13"
+pytest = "^8.3.3"
+pre-commit = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -8,7 +8,7 @@ from ..config import dp, bot
 
 
 @dp.message(Command("clear"))
-async def command_clear_states_handler(message: types.Message, state: FSMContext):
+async def command_clear_states_handler(message: types.Message, state: FSMContext) -> None:
     bot_message = await message.reply("Clearing states...")
     await asyncio.sleep(0.5)
     await state.clear()

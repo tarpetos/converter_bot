@@ -7,7 +7,7 @@ from .keywords_handlers.file_to_file_conversion_keyword import (
 from .keywords_handlers.img_to_file_conversion_keyword import (
     keyword_file_to_file_handler,
 )
-from .bot_runner import ConverterBot
+from .config import dp, bot
 
 __all__ = (
     "command_start_handler",
@@ -15,5 +15,6 @@ __all__ = (
     "command_clear_states_handler",
     "keyword_img_to_file_handler",
     "keyword_file_to_file_handler",
-    "ConverterBot",
+    "dp",
+    "bot",
 )

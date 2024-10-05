@@ -3,7 +3,7 @@ import asyncio
 import logging
 import sys
 from datetime import datetime
-from converter_bot import ConverterBot
+from converter_bot import dp, bot
 
 
 def configure_logs() -> None:
@@ -17,9 +17,7 @@ def configure_logs() -> None:
     file_handler = logging.FileHandler(log_filepath)
     console_handler = logging.StreamHandler(sys.stdout)
 
-    log_formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
+    log_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     file_handler.setFormatter(log_formatter)
     console_handler.setFormatter(log_formatter)
 
@@ -31,8 +29,7 @@ def configure_logs() -> None:
 
 def main() -> None:
     configure_logs()
-    bot_starter = ConverterBot()
-    asyncio.run(bot_starter.start())
+    asyncio.run(dp.start_polling(bot))
 
 
 if __name__ == "__main__":

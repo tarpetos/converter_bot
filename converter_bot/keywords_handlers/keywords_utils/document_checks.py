@@ -1,5 +1,5 @@
 import os
-from typing import Union, Optional, Tuple
+from typing import Union, Optional, Tuple, Dict, Any
 
 from aiogram import types
 from aiogram.types import ContentType, PhotoSize, Document
@@ -14,6 +14,7 @@ from .constants import (
     JPG,
     PNG,
 )
+from .pdf_docx_converter import DocxToPdf, PdfToDocx
 
 
 def get_conversion_path_name(
@@ -30,23 +31,17 @@ def get_conversion_path_name(
     return os.path.abspath(path)
 
 
-def get_file_conversion_extension(file_ext: str) -> Optional[str]:
-    doc_extensions = (DOCX, DOC)
-    pdf_extension = (PDF,)
-    document_extension = file_ext
-
-    if document_extension in doc_extensions:
-        return pdf_extension[0]
-    elif document_extension in pdf_extension:
-        return doc_extensions[0]
-    return None
-
-
-def is_file_ext_allowed(
-    message: types.Message, allowed_extensions: Tuple[str, str, str]
-) -> bool:
+def is_file_ext_allowed(message: types.Message, allowed_extensions: Tuple[str, str, str]) -> bool:
     document_extension = message.document.file_name.split(".")[-1]
     return document_extension in allowed_extensions
+
+
+def get_opposite_ext_params(ext: str) -> Dict[str, Union[str, Any]]:
+    params = (PDF, DocxToPdf) if ext in (DOC, DOCX) else (DOCX, PdfToDocx)
+    return {
+        "opposite_ext": params[0],
+        "converter_cls": params[1],
+    }
 
 
 def is_document(message: types.Message) -> bool:
