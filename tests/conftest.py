@@ -26,6 +26,7 @@ def prep_file(prep_dir, request) -> str:
     filename = getattr(request, "param", "test.txt")
     test_file: str = os.path.join(test_dir_path, filename)
 
-    with open(test_file, "w"): ...
+    with open(test_file, "w"):
+        ...
 
     return RecursiveFilenameChanger(test_file)

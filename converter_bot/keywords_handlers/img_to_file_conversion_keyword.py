@@ -123,4 +123,3 @@ async def send_documents(message: types.Message, pdf_path: str, docx_path: str) 
         (False, True): "Conversion error: converted PDF is to large (must be less than 50 MB)!",
         (False, False): "Conversion failed because converted files are larger than 50MB!",
     }.get((pdf_sent, docx_sent), "Couldn't get conversion status!")
-

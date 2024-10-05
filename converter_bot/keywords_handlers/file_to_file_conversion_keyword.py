@@ -59,8 +59,9 @@ async def process_img_to_file_keyword(message: types.Message, replied_message: t
         "Conversion failed with error!"
         if is_sent == -1
         else (
-            "Conversion was successfully ended!" if is_sent else
-            "Conversion failed because converted file is larger than 50MB!"
+            "Conversion was successfully ended!"
+            if is_sent
+            else "Conversion failed because converted file is larger than 50MB!"
         )
     )
 

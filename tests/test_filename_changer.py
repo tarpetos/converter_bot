@@ -40,8 +40,9 @@ from tests.conftest import prep_file
 )
 def test_filename_changer(prep_file, expected_filename):
     path = prep_file
-    assert (actual_filename := os.path.basename(path)) == expected_filename, \
-        f"Expected filename must be `{expected_filename}`, got `{actual_filename}` instead!"
+    assert (
+        actual_filename := os.path.basename(path)
+    ) == expected_filename, f"Expected filename must be `{expected_filename}`, got `{actual_filename}` instead!"
 
 
 @pytest.mark.parametrize(
@@ -53,5 +54,4 @@ def test_filename_changer(prep_file, expected_filename):
     indirect=["prep_file"],
 )
 @pytest.mark.xfail(raises=IsADirectoryError)
-def test_invalid_filename(prep_file, expected_filename):
-    ...
+def test_invalid_filename(prep_file, expected_filename): ...
