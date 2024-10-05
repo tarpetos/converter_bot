@@ -1,7 +1,6 @@
 import os
 
 import pytest
-from tests.conftest import prep_file
 
 
 @pytest.mark.parametrize(
@@ -43,6 +42,14 @@ def test_filename_changer(prep_file, expected_filename):
     assert (
         actual_filename := os.path.basename(path)
     ) == expected_filename, f"Expected filename must be `{expected_filename}`, got `{actual_filename}` instead!"
+
+
+def test_filename_changer_many(prep_files):
+    actual_names = prep_files
+    expected_names = [f"test{i if i != 0 else ""}.txt" for i in range(10)]
+    assert (
+        actual_names == expected_names
+    ), f"Expected list of filenames must be `{expected_names}`, got `{actual_names}` instead!"
 
 
 @pytest.mark.parametrize(
